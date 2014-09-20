@@ -1,0 +1,20 @@
+Bug 1: Game does not pay out at correct level.
+When player wins on 1 match, balance does not increase.
+
+Bug 2: Player cannot reach betting limit:
+Limit set to 0, but game ends with player still with 5 (dollars) remaining.
+
+Bug 3: Odds in the game do not appear to be correct.
+Crown and Anchor games have an approximate 8% bias to the house. So the win : (win+lose) ratio 
+should approximately equal 0.42. This does not appear to be the case.
+
+Bug 4: Dice seem to always roll the same after first roll. Possibly related to Bug 3. 
+
+
+Unchecked issues:
+Are odds paid correctly for multiple matches?
+Player can’t bet more than balance.
+Check whether rules need to be enforced. (Eg player age, showing limit, etc).
+Check whether able to pick an invalid value.
+Check whether all values appear at random.
+
