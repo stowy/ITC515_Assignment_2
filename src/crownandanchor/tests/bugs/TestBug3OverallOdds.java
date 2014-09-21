@@ -15,12 +15,10 @@ import crownandanchor.Player;
 public class TestBug3OverallOdds {
 
 	private static final String NAME = "Sam";
-	private static final int STARTING_BALANCE = 10;
+	private static final int STARTING_BALANCE = 1000;
 	private static final int BETTING_LIMIT = 0;
 	private static final DiceValue PICK_CROWN = DiceValue.CROWN;
 	private static final int BET_AMOUNT = 5;
-	private static final int MAX_BALANCE = 300;
-	private static final int MAX_TURNS = 200;
 	
 	private static final double MAX_WIN_LOSS_RATIO = 0.43;
 	private static final double MIN_WIN_LOSS_RATIO = 0.41;
@@ -38,6 +36,12 @@ public class TestBug3OverallOdds {
 		d2 = new Dice();
 		d3 = new Dice();
 		
+		//Create player
+		player = new Player(NAME, STARTING_BALANCE);
+		player.setLimit(BETTING_LIMIT);
+		
+		//Create game
+		game = new Game(d1, d2, d3);
 	}
 
 	@After
@@ -51,25 +55,17 @@ public class TestBug3OverallOdds {
 
 	@Test
 	public void test() {
-		//Create game
-		game = new Game(d1, d2, d3);
 		
 		//Play round
 		int winCount = 0;
 		int lossCount = 0;
 		
-		int numGames = 100;
+		int numRounds = 1000;
 		
-		for (int gameNo = 1; gameNo <= numGames; gameNo++) {
-			int turn = 0;
-			//Create player
-			player = new Player(NAME, STARTING_BALANCE);
-			player.setLimit(BETTING_LIMIT);
-			
-			do {
-				System.out.printf("Turn %d: %s bet %d on %s\n",
-	        			turn, player.getName(), BET_AMOUNT, PICK_CROWN); 
+		for (int round = 1; round <= numRounds; round++) { 
 	        	
+			if (player.balanceExceedsLimitBy(BET_AMOUNT)) {
+				
 	        	int winnings = game.playRound(player, PICK_CROWN, BET_AMOUNT);
 	            List<DiceValue> cdv = game.getDiceValues();
 	            
@@ -86,11 +82,7 @@ public class TestBug3OverallOdds {
 	                		player.getName(), player.getBalance());
 	                lossCount++;
 	            }
-	            turn++;
-	            
-			} while (player.balanceExceedsLimitBy(BET_AMOUNT) && player.getBalance() <= MAX_BALANCE && turn <= MAX_TURNS);
-			
-			player = null;
+			}
 		}
 		
 		double winLossRatio = (winCount * 1.0)/(lossCount*1.0);
