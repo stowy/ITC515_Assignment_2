@@ -1,3 +1,4 @@
+package crownandanchor;
 
 public class Player {
 	private String name;
