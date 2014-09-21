@@ -60,6 +60,8 @@ public class TestBug3OverallOdds {
 		int winCount = 0;
 		int lossCount = 0;
 		
+		
+		//Assume 1000 rounds is sufficient to get accurate win/loss ratio
 		int numRounds = 1000;
 		
 		for (int round = 1; round <= numRounds; round++) { 
