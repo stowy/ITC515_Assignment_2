@@ -57,7 +57,7 @@ public class TestBug4DiceValues {
 		
 		for (int roll = 0; roll < numRolls; roll++) {
 			DiceValue result = d1.roll();
-			System.out.printf("Rolled %s, GetValue(): %s", result.toString(), d1.getValue().toString());
+			System.out.printf("Rolled %s, GetValue(): %s\n", result.toString(), d1.getValue().toString());
 			assertEquals(result, d1.getValue());
 		}
 	}

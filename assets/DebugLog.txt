@@ -107,4 +107,15 @@ Resolving Bug 2 - Player cannot reach betting limit.
 
 We need to inspect the balance exceeds limit by method. Inspection shows that both balance exceeds limit and balance exceeds limit by using a ‘>’ (greater than) comparator. In this case we don’t mind if the balance is equal to the limit, so we should change this to ‘>=‘ (greater than or equal to).
 
-After making this change, out automated tests pass. The UAT test for this also passes. Rerunning Bug1 tests still pass, so no new bugs are identified. 
+After making this change, out automated tests pass. The UAT test for this also passes. Rerunning Bug1 tests still pass, so no new bugs are identified.
+
+Resolving Bug 4 - Dice rolling same values.
+
+We need to resolve bug 4 before resolving bug 3 as it is related to betting odds and the dice need to function correctly first.
+
+We will inspect dice.getValue() to see why the value is not changing. 
+On inspection, it is noted that the ‘value’ property of a Dice is initiated in the constructor but not revised on a roll. This is a definite bug.
+
+After resolving this issue by assigning the rolled value to the value property and returning that property, we find that the roll() and getValue() methods align and the getValue() method starts to return new values.
+
+We find the automated test for this method now passes as does the UAT test. However the test that the dice returns all values still fails and this will affect bug 3 which we will now revisit.  
