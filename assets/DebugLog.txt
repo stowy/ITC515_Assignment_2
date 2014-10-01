@@ -103,3 +103,8 @@ The resolution is that we need to refund the bet amount if a win occurs. As the 
 After resolving the issue as described, the automated payout tests for bug 1 all pass. UAT testing for this bug also passes. No new bugs are identified.
 
 
+Resolving Bug 2 - Player cannot reach betting limit.
+
+We need to inspect the balance exceeds limit by method. Inspection shows that both balance exceeds limit and balance exceeds limit by using a ‘>’ (greater than) comparator. In this case we don’t mind if the balance is equal to the limit, so we should change this to ‘>=‘ (greater than or equal to).
+
+After making this change, out automated tests pass. The UAT test for this also passes. Rerunning Bug1 tests still pass, so no new bugs are identified. 

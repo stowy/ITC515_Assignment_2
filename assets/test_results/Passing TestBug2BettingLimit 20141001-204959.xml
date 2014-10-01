@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="TestBug2BettingLimit" project="Assignment2" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="crownandanchor.tests.bugs.TestBug2BettingLimit" time="0.157">
+    <testcase name="test" classname="crownandanchor.tests.bugs.TestBug2BettingLimit" time="0.155"/>
+    <testcase name="testPlayerBalanceExceedsLimit" classname="crownandanchor.tests.bugs.TestBug2BettingLimit" time="0.002"/>
+  </testsuite>
+</testrun>
