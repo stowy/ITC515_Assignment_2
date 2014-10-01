@@ -145,3 +145,13 @@ Experiment	Develop automated test of DiceValue.getRandom() and check occurrences
 Observation	With 10,000 rolls fraction is within 1% of expected fraction. With 500 rolls is within 3%
 Conclusion	Incorrect hypothesis, it is random enough.
 
+Let’s change tact. Perhaps the calculations are wrong for the ratio. The odds should be that the player wins 42% of the time. Assuming our odds are correct which the above test shows they should be, perhaps our win/loss ratio should be assessed. We are not concerned with the win/loss ratio, we are concerned with the total win rate. 
+
+Third Run
+Hypothesis	Calculate wins/total rounds percentage is incorrect and wins/total rounds should be 42%.
+Prediction	Automated testing will show win rate of 42% +/- 3% after 1000 rounds.
+Experiment	Revise automated test to calculate wins/total rounds percentage.	
+Observation	Prediction correct, revised test passes.
+Conclusion	Issue is with win rate logic.
+
+After revising the automated test it appears that the game is working correctly with the correct odds. The remaining part of this Bug was related to the automated test. 

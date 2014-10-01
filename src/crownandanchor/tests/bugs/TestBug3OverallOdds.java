@@ -20,8 +20,10 @@ public class TestBug3OverallOdds {
 	private static final DiceValue PICK_CROWN = DiceValue.CROWN;
 	private static final int BET_AMOUNT = 5;
 	
-	private static final double MAX_WIN_LOSS_RATIO = 0.48;
-	private static final double MIN_WIN_LOSS_RATIO = 0.35;
+	private static final double WIN_RATE = 0.42;
+	private static final double WIN_RATE_VARIANCE = 0.03;
+	private static final double MAX_WIN_RATE = WIN_RATE + WIN_RATE_VARIANCE;
+	private static final double MIN_WIN_RATE = WIN_RATE - WIN_RATE_VARIANCE;
 	
 	private Player player;
 	private Dice d1;
@@ -87,9 +89,9 @@ public class TestBug3OverallOdds {
 			}
 		}
 		
-		double winLossRatio = (winCount * 1.0)/(lossCount*1.0);
-		assertTrue(String.format("Win loss ratio too great: %.2f", winLossRatio), winLossRatio <= MAX_WIN_LOSS_RATIO);
-		assertTrue(String.format("Win loss ratio too little: %.2f", winLossRatio), winLossRatio >= MIN_WIN_LOSS_RATIO);
+		double winRate = (winCount * 1.0)/(winCount + lossCount*1.0);
+		assertTrue(String.format("Win loss ratio too great: %.2f", winRate), winRate <= MAX_WIN_RATE);
+		assertTrue(String.format("Win loss ratio too little: %.2f", winRate), winRate >= MIN_WIN_RATE);
 		
 		//Check result
 		
