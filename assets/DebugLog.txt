@@ -155,3 +155,5 @@ Observation	Prediction correct, revised test passes.
 Conclusion	Issue is with win rate logic.
 
 After revising the automated test it appears that the game is working correctly with the correct odds. The remaining part of this Bug was related to the automated test. 
+
+Running the UAT on this bug also passes. Running all automated tests shows no new bugs, so regression testing is also passing. 
