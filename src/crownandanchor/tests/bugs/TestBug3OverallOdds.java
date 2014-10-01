@@ -20,8 +20,8 @@ public class TestBug3OverallOdds {
 	private static final DiceValue PICK_CROWN = DiceValue.CROWN;
 	private static final int BET_AMOUNT = 5;
 	
-	private static final double MAX_WIN_LOSS_RATIO = 0.43;
-	private static final double MIN_WIN_LOSS_RATIO = 0.41;
+	private static final double MAX_WIN_LOSS_RATIO = 0.48;
+	private static final double MIN_WIN_LOSS_RATIO = 0.35;
 	
 	private Player player;
 	private Dice d1;

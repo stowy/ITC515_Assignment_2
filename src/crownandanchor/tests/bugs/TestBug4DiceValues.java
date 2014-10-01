@@ -38,8 +38,6 @@ public class TestBug4DiceValues {
 		
 		int numRolls = 5000;
 		
-
-		
 		for (int roll = 0; roll < numRolls; roll++) {
 			DiceValue rolled = d1.roll();
 			System.out.printf("Roll #%d, rolled %s\n", roll, rolled.toString());
@@ -59,6 +57,7 @@ public class TestBug4DiceValues {
 		
 		for (int roll = 0; roll < numRolls; roll++) {
 			DiceValue result = d1.roll();
+			System.out.printf("Rolled %s, GetValue(): %s", result.toString(), d1.getValue().toString());
 			assertEquals(result, d1.getValue());
 		}
 	}

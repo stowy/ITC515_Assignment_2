@@ -80,5 +80,11 @@ public class TestBug2BettingLimit {
 		assertEquals(BETTING_LIMIT, player.getBalance());
 	}
 	
+	@Test
+	public void testPlayerBalanceExceedsLimit() {
+		assertTrue("Player balance does not exceed limit", player.balanceExceedsLimit());
+		assertTrue("Player balance does not exceed limit of 0 by starting balance", player.balanceExceedsLimitBy(STARTING_BALANCE));
+	}
+	
 
 }
