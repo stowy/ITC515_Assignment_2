@@ -11,10 +11,5 @@ should approximately equal 0.42. This does not appear to be the case.
 Bug 4: Dice seem to always roll the same after first roll. Possibly related to Bug 3. 
 
 
-Unchecked issues:
-Are odds paid correctly for multiple matches?
-Player can’t bet more than balance.
-Check whether rules need to be enforced. (Eg player age, showing limit, etc).
-Check whether able to pick an invalid value.
-Check whether all values appear at random.
+
 
