@@ -100,4 +100,6 @@ Resolving Bug 1 - Incorrect payout.
 
 The resolution is that we need to refund the bet amount if a win occurs. As the bet is taken within the playRound() method and winnings are refunded in same method, it makes sense to only take the bet amount from the player if they do no win. 
 
+After resolving the issue as described, the automated payout tests for bug 1 all pass. UAT testing for this bug also passes. No new bugs are identified.
+
 
