@@ -1,0 +1,103 @@
+Read ‘Why Programs Fail’ (Zeller) - Chapter 6 - Log book.
+Also Chapter 7.3 - Tracking Dependencies
+Chapter 8 - Observation
+
+Debugging Bug 1 - Incorrect payout level
+
+First run
+Hypothesis	Winnings incorrectly calculated
+Prediction	All winnings amounts would be incorrect
+Experiment	Play games and observe winning amounts
+Observation	Winning amounts are not incorrect
+Conclusion	Wrong hypothesis. Winnings calculations are correct.
+
+Second run
+Hypothesis	Balance incorrectly calculated
+Prediction	Balance after adding winnings is not correct
+Experiment	Play games and observe winning amounts and balance changes
+Observation	Balance goes down when lose by bet amount. When win with one match, balance stays the same. When win with two matches, balance goes up but not by correct amount.
+Conclusion	Balance is incorrectly calculated. Further investigation needed.
+
+Third run
+Hypothesis	Bet not refunded when winning
+Prediction	Balance after winning is incorrect by bet amount as bet amount not refunded.
+Experiment	Play games and observe winning amounts and balance changes
+Observation	Balance is indeed off by bet amount after all win types. Issue is with refunding bet after win.
+Conclusion	Issue is in Game.playRound() with the taking bet and receiving winnings. 
+
+After above theories tested, automated test was developed to test the calculated result (winnings) and the resulting player balance after 0, 1, 2 and 3 matches.
+
+The transition from sane to infected occurs in the Game.playround() method when the player receives winnings. The result is correct but the bet is not refunded resulting in an incorrect balance. 
+
+
+Debugging Bug 2 - Player cannot reach betting limit
+
+Issue is with game ending before player has reached betting limit. Logically this is an issue with Player.balanceExceedsLimit.
+
+First run
+Hypothesis	Issue with Player.balanceExceedsLimitBy(int amount)
+Prediction	Game ends when player balance still exceeds limit by bet amount
+Experiment	Run game and observe final balance, bet amount 5, limit 0. 
+Observation	Final balance is 5, which is still bet amount (5) above betting limit (0).
+Conclusion	There is an issue with Player.balanceExceedsLimitBy(int amount)
+
+After this run an automated test was developed that plays rounds and loses until the nominated method returns false. Then the remaining balance is checked. This demonstrates the bug. A further simplification is possible though.
+
+Second run
+Hypothesis	Issue with Player.balanceExceedsLimitBy(int amount)
+Prediction	If we initialise a player with a balance of X, and a limit of 0, Player.balanceExceedsLimitBy(X) will be false
+Experiment	Create an automated test creating a player and checking above stated prediction
+Observation	Test fails where player balance does not exceed zero by starting balance of 10, which is incorrect.
+Conclusion	There is an issue with Player.balanceExceedsLimitBy(int amount).
+
+Simplified test shows same result. issue two is contained within the balance exceeds limit by method.
+
+
+Debugging Bug 3 - Game overall odds appear incorrect
+
+This is a larger scale issue and needs to be narrowed down.  To start, an automated test case has been developed which picks the same value over and over again and plays for a specified number of rounds and checks the result.
+
+First run
+Hypothesis	Win/loss ratio is out by a specified amount
+Prediction	If a large number of rounds are played with same pick and win and loss rates calculated, the win/loss ratio should converge
+Experiment	Run an automated test using same pick over a large number (say 1000) rounds.
+Observation	Win/loss ratio converges to zero or infinity
+Conclusion	Incorrect hypothesis as two outcomes are noted and no convergence appears.
+
+In running the automated test for the above hypothesis it was noted that the dice values do not change after the first round, and that the first result is repeated infinitely. Bug 4 was then identified and this will be resolved first to see if it resolves this Bug. 
+
+
+Debugging Bug 4 - Dice seem to always roll the same after first roll.
+
+It has already been observed that game.getDiceValues() returns the same after every round which is incorrect behaviour.
+It has also been noted that the winnings amounts correspond to the reported dice values correctly.
+It is believed that there is an issue with Dice behaviour in returning random values. 
+We will therefore test the Dice in some automated tests.
+
+First run
+Hypothesis	Dice.roll() not returning different values
+Prediction	If we do a large number of rolls and collect the results in an array, the resulting array will not contain all dice values
+Experiment	Automated test that does 5000 rolls and collects results in an array, then checks all values were rolled.
+Observation	Dice did indeed roll different values. It did not however, roll a SPADE.
+Conclusion	Issue with dice.roll() but not as expected. It is returning different values.
+
+We have in the above identified that there is an issue with dice.roll which needs resolving in that it does not return SPADE ever. However the value rolled is changing and therefore it is not the cause of this bug. It will affect bug 3 however.
+
+Second run
+Hypothesis	The problem is with Dice.getValue()
+Prediction	After a large enough number of repeats to account for chance, Dice.getValue() will not return the same as dice.roll(). Dice.getValue() will return same value.
+Experiment	Automated test that does 100 rolls and checks getValue() returns the same as roll()
+Observation	Test fails. Dice.getValue() returns different value from that rolled, but consistently same value.
+Conclusion	Correct hypothesis. Issue is with dice.getValue() not varying and not same as dice.roll().
+
+
+At this point we have identified the methods in which each bug occurs and we have tests to verify all fixes once in place.
+
+We need to resolve bug 4 before we can fully verify and resolve bug 3.
+
+
+Resolving Bug 1 - Incorrect payout.
+
+The resolution is that we need to refund the bet amount if a win occurs. As the bet is taken within the playRound() method and winnings are refunded in same method, it makes sense to only take the bet amount from the player if they do no win. 
+
+
