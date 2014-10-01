@@ -118,4 +118,17 @@ On inspection, it is noted that the ‘value’ property of a Dice is initiated 
 
 After resolving this issue by assigning the rolled value to the value property and returning that property, we find that the roll() and getValue() methods align and the getValue() method starts to return new values.
 
-We find the automated test for this method now passes as does the UAT test. However the test that the dice returns all values still fails and this will affect bug 3 which we will now revisit.  
+We find the automated test for this method now passes, as does the UAT test. However the test that the dice returns all values still fails and this will affect bug 3 which we will now revisit.  
+
+
+Revisiting Bug 3 - Win/loss ratio.
+
+We now repeat the tests for the win/loss ratio having resolved the issue with the dice values not changing. 
+
+The tests show that the win loss ratio now appears to approximate 90%, so it is converging, however it is too high. 
+
+We note however that the test that all dice values are rolled is failing still, so we will inspect the roll method to find out why no SPADE is being rolled.
+
+The roll() method relies on DiceValue.getRandom(). This method uses Random.nextInt(), passing in the value of the SPADE ordinal. This excludes the spade from ever being rolled as nextInt(N) returns a random int between 0 (inclusive) and N (exclusive). We therefore pass in values().length to enable the spade ordinal to be returned. This enables the automated test for all diceValues being rolled to pass.
+
+
