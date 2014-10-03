@@ -9,7 +9,8 @@ This repository contains the following packages:
 
 |Path | Explanation
 | ------------- |:-------------|
-| **src/crownandanchor*** | All the classes implementing the interfaces |
-| **src/crownandanchor.tests.*** | All the tests|
-| **assets/uat** | Contains the word document outlining all UAT tests specified and the results  obtained. |
+| **src/crownandanchor** | All the classes implementing the interfaces |
+| **src/crownandanchor.tests.bugs** | All automated tests demonstrating bugs|
+| **assets/** | Contains the documentation of UAT tests and debugging logs. |
+| **assets/testresults** | Contains the archived test results. |
 | **libs**        | All dependencies required in running the tests and application  |
